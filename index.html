@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="description" content="A little universe made for you — a handcrafted birthday gift.">
+  <title>Happy Birthday — A Little Universe Made for You</title>
+
+  <!-- Fonts (graceful fallback to system serif/sans if offline) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23081426'/%3E%3Cpath d='M22.6 5A11 11 0 1 0 27.8 22 8.8 8.8 0 0 1 22.6 5Z' fill='%23F5F0E6'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ============ Layar Password ============ -->
+  <div id="auth-screen" class="auth-overlay">
+    <div class="auth-box">
+      <svg class="auth-icon" width="40" height="40" viewBox="0 0 40 40"><use href="#orn-moon" fill="#9DBBDA"/></svg>
+      <h2>Tunggu Sebentar...</h2>
+      <p>Masukkan kata sandi rahasia untuk membuka tempat ini.</p>
+      <input type="password" id="auth-input" placeholder="Ketik kata sandi...">
+      <button id="auth-btn" class="btn btn--primary">Masuk</button>
+      <p id="auth-error" class="auth-error">Kata sandinya salah, coba lagi ya.</p>
+    </div>
+  </div>
+
+  <!-- ============ Animasi Queue Kata-Kata ============ -->
+  <div id="queue-overlay" class="queue-overlay">
+    <h2 id="queue-word" class="queue-word"></h2>
+  </div>
+
+  <!-- Reusable paper-cut ornaments (referenced with <use href="#...">) -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <defs>
+      <!-- Four-point cut-paper star -->
+      <symbol id="orn-star" viewBox="0 0 24 24">
+        <path d="M12 1.2c.7 5.9 2.2 8.6 10.8 10.8-8.6 2.2-10.1 4.9-10.8 10.8-.7-5.9-2.2-8.6-10.8-10.8C9.8 9.8 11.3 7.1 12 1.2Z"/>
+      </symbol>
+      <!-- Simple five-petal cut flower -->
+      <symbol id="orn-flower" viewBox="0 0 40 40">
+        <g>
+          <ellipse cx="20" cy="10.5" rx="5.2" ry="8.2"/>
+          <ellipse cx="20" cy="10.5" rx="5.2" ry="8.2" transform="rotate(72 20 20)"/>
+          <ellipse cx="20" cy="10.5" rx="5.2" ry="8.2" transform="rotate(144 20 20)"/>
+          <ellipse cx="20" cy="10.5" rx="5.2" ry="8.2" transform="rotate(216 20 20)"/>
+          <ellipse cx="20" cy="10.5" rx="5.2" ry="8.2" transform="rotate(288 20 20)"/>
+          <circle cx="20" cy="20" r="3.4" class="flower-heart"/>
+        </g>
+      </symbol>
+      <!-- Small crescent moon -->
+      <symbol id="orn-moon" viewBox="0 0 32 32">
+        <path d="M22.6 3.4A13.2 13.2 0 1 0 28.8 22 10.6 10.6 0 0 1 22.6 3.4Z"/>
+      </symbol>
+    </defs>
+  </svg>
+
+  <main id="top">
+
+    <!-- ============ Section 1 · Opening Scene ============ -->
+    <section class="hero" id="opening" aria-label="Welcome">
+      <div class="hero-scene" aria-hidden="true">
+        <svg id="heroScene" viewBox="0 0 1440 820" preserveAspectRatio="xMidYMax slice" focusable="false">
+          <defs>
+            <filter id="softBlur" x="-60%" y="-60%" width="220%" height="220%">
+              <feGaussianBlur stdDeviation="18"/>
+            </filter>
+            <mask id="crescentCut">
+              <rect width="100%" height="100%" fill="black"/>
+              <circle cx="1080" cy="186" r="72" fill="white"/>
+              <circle cx="1106" cy="170" r="64" fill="black"/>
+            </mask>
+          </defs>
+
+          <!-- stars -->
+          <g class="scene-stars" data-parallax="0.06" fill="#F5F0E6">
+            <circle cx="120" cy="110" r="1.6" opacity=".7"/>
+            <circle cx="240" cy="200" r="1.2" opacity=".45"/>
+            <circle cx="360" cy="90"  r="1.9" opacity=".8" class="twinkle"/>
+            <circle cx="520" cy="150" r="1.2" opacity=".5"/>
+            <circle cx="660" cy="70"  r="1.5" opacity=".65" class="twinkle twinkle--late"/>
+            <circle cx="790" cy="180" r="1.1" opacity=".4"/>
+            <circle cx="920" cy="90"  r="1.7" opacity=".75"/>
+            <circle cx="1240" cy="90" r="1.4" opacity=".55" class="twinkle"/>
+            <circle cx="1330" cy="220" r="1.8" opacity=".7"/>
+            <circle cx="70"  cy="300" r="1.3" opacity=".5"/>
+            <circle cx="450" cy="290" r="1.4" opacity=".55"/>
+            <circle cx="870" cy="300" r="1.2" opacity=".45"/>
+            <circle cx="1180" cy="330" r="1.3" opacity=".5"/>
+            <use href="#orn-star" x="176" y="148" width="14" height="14" opacity=".85" class="twinkle"/>
+            <use href="#orn-star" x="700" y="120" width="11" height="11" opacity=".6"/>
+            <use href="#orn-star" x="1290" y="150" width="16" height="16" opacity=".8" class="twinkle twinkle--late"/>
+            <use href="#orn-star" x="540" y="230" width="9"  height="9"  opacity=".5"/>
+            <use href="#orn-star" x="980" y="380" width="10" height="10" opacity=".45"/>
+            <use href="#orn-star" x="60"  y="180" width="10" height="10" opacity=".55"/>
+          </g>
+
+          <!-- moon -->
+          <g data-parallax="0.1">
+            <circle cx="1080" cy="186" r="128" fill="#F5F0E6" opacity=".08" filter="url(#softBlur)"/>
+            <circle cx="1080" cy="186" r="72" fill="#F5F0E6" mask="url(#crescentCut)"/>
+          </g>
+
+          <!-- clouds -->
+          <g data-parallax="0.14" fill="#1B3A5F">
+            <path opacity=".45" d="M902 226c22-20 58-22 82-8 14-16 44-20 64-8 20 12 26 34 14 48H916c-16-8-20-22-14-32Z"/>
+            <path opacity=".35" d="M1160 300c16-14 42-16 60-6 10-11 32-14 46-6 14 8 18 24 10 34h-104c-12-6-16-15-12-22Z"/>
+            <path opacity=".4" d="M180 260c18-15 46-17 66-7 12-12 36-15 52-6 15 9 19 26 10 36H194c-13-6-18-15-14-23Z"/>
+          </g>
+
+          <!-- far ridge with a small mountain -->
+          <g data-parallax="0.2">
+            <path class="layer-shadow" fill="#16324F"
+              d="M0 500c70-14 130-52 196-92 40-24 66-12 102 16 58 44 120 52 196 40 96-15 196-34 300-26 130 10 250 30 374 8 88-15 192-10 272 6v368H0Z"/>
+          </g>
+
+          <!-- middle hills -->
+          <g data-parallax="0.3">
+            <path class="layer-shadow" fill="#0E2140"
+              d="M0 586c120-32 250-46 380-30 120 15 220 44 350 32 140-13 250-48 390-40 120 7 230 26 320 14v258H0Z"/>
+          </g>
+
+          <!-- front hill with flower silhouettes -->
+          <g data-parallax="0.42">
+            <path class="layer-shadow" fill="#060F1E"
+              d="M0 690c150-38 300-52 460-34 160 18 300 46 470 30 170-15 350-30 510 6v128H0Z"/>
+            <g fill="#0B1B33">
+              <!-- left cluster -->
+              <path d="M196 690c-2-26-4-46-2-66l4 .2c-1 20 1 40 3 66Z"/>
+              <use href="#orn-flower" x="178" y="600" width="38" height="38"/>
+              <path d="M262 706c-1-20-3-36-1-52l4 .2c-1 16 0 32 2 52Z"/>
+              <use href="#orn-flower" x="249" y="634" width="30" height="30"/>
+              <!-- right cluster -->
+              <path d="M1216 700c-2-24-4-42-2-60l4 .2c-1 18 1 36 3 60Z"/>
+              <use href="#orn-flower" x="1200" y="616" width="34" height="34"/>
+              <path d="M1284 716c-1-17-2-30-1-44l3 .1c0 14 1 27 2 44Z"/>
+              <use href="#orn-flower" x="1272" y="652" width="26" height="26"/>
+            </g>
+            <!-- one ivory-hearted flower as a quiet accent -->
+            <use href="#orn-flower" x="1058" y="640" width="30" height="30" fill="#274B73"/>
+            <path d="M1072 692c-1-9-2-16-1-22l3 .1c0 6 1 13 2 22Z" fill="#0B1B33"/>
+          </g>
+        </svg>
+      </div>
+
+      <div class="hero-content">
+        <p class="kicker reveal">a little something, made just for you</p>
+        <h1 class="hero-title reveal">Happy Birthday, My&nbsp;Favorite&nbsp;Person.</h1>
+        <p class="hero-sub reveal">I made you a small corner of the internet — a quiet night sky, a letter, and a few of the reasons you matter to me.</p>
+        <button class="btn btn--primary reveal" id="open-surprise" type="button">
+          Open Your Little Surprise
+          <svg class="btn-arrow" width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2v10M3.5 8.5 8 13l4.5-4.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+
+      <p class="hero-scrollhint" aria-hidden="true">scroll slowly, there’s no rush</p>
+    </section>
+
+    <!-- ============ Section 2 · Birthday Letter ============ -->
+    <section class="section letter" id="letter" aria-labelledby="letter-heading">
+      <div class="section-inner">
+        <p class="kicker reveal">a letter, written the slow way</p>
+        <h2 class="section-title reveal" id="letter-heading">For You, On Your Birthday</h2>
+
+        <article class="letter-sheet reveal" aria-label="Birthday letter">
+          <svg class="letter-stamp" width="52" height="52" viewBox="0 0 40 40" aria-hidden="true">
+            <use href="#orn-flower" fill="#42658A"/>
+          </svg>
+
+          <p class="letter-date">on your birthday</p>
+          <p class="letter-greeting">Dear <span class="fill-in">[HER_NAME]</span>,</p>
+
+          <p>Happy birthday, my <span class="fill-in">[YOUR_NICKNAME_FOR_HER]</span>. I thought about buying you something ordinary, but nothing on a shelf felt right. So I made you this instead — a small place that exists only for you.</p>
+
+          <p><span class="fill-in">[PERSONAL_MESSAGE]</span></p>
+
+          <p>Thank you for another year of your laugh, your patience, and the way ordinary days feel a little less ordinary with you in them. I hope today gives back even a fraction of what you give so easily to everyone else.</p>
+
+          <p>Grow older, stay curious, and please keep being exactly you.</p>
+
+          <p class="letter-signoff">With all my love,</p>
+          <p class="letter-signature"><span class="fill-in">[YOUR_NAME]</span></p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============ Section 3 · Little Things About You ============ -->
+    <section class="section things" id="little-things" aria-labelledby="things-heading">
+      <div class="section-inner">
+        <p class="kicker reveal">kept, not counted</p>
+        <h2 class="section-title reveal" id="things-heading">Little Things About You<br>I Wouldn’t Trade for Anything</h2>
+
+        <div class="things-list">
+          <article class="thing thing--left reveal">
+            <svg class="thing-ornament" width="30" height="30" viewBox="0 0 24 24" aria-hidden="true"><use href="#orn-star" fill="#9DBBDA"/></svg>
+            <p class="thing-number">01</p>
+            <h3 class="thing-title">The way you notice small things</h3>
+            <p class="thing-text"><span class="fill-in">[THING_I_LOVE_1]</span></p>
+          </article>
+
+          <article class="thing thing--right reveal">
+            <svg class="thing-ornament" width="34" height="34" viewBox="0 0 40 40" aria-hidden="true"><use href="#orn-flower" fill="#9DBBDA"/></svg>
+            <p class="thing-number">02</p>
+            <h3 class="thing-title">Your laugh, mid-sentence</h3>
+            <p class="thing-text"><span class="fill-in">[THING_I_LOVE_2]</span></p>
+          </article>
+
+          <article class="thing thing--left thing--wide reveal">
+            <svg class="thing-ornament" width="30" height="30" viewBox="0 0 32 32" aria-hidden="true"><use href="#orn-moon" fill="#C7D4E5"/></svg>
+            <p class="thing-number">03</p>
+            <h3 class="thing-title">How calm the world gets around you</h3>
+            <p class="thing-text"><span class="fill-in">[THING_I_LOVE_3]</span></p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Section 4 · Our Little Memories ============ -->
+    <section class="section memories" id="memories" aria-labelledby="memories-heading">
+      <div class="section-inner">
+        <p class="kicker reveal">a few pages from us</p>
+        <h2 class="section-title reveal" id="memories-heading">Our Little Memories</h2>
+        <p class="section-lead reveal">Replace these placeholders with your own photos — the blurry, candid, unposed ones are usually the best.</p>
+
+        <div class="gallery">
+          <figure class="memory memory--tall reveal">
+            <button class="memory-button" type="button"
+                    data-caption="[MEMORY_CAPTION_1]"
+                    aria-label="Open memory 1 in a larger view">
+              <img src="assets/memory-01.jpg" width="900" height="1200" loading="lazy"
+                   alt="Memory one — replace this placeholder with a photo of the two of you">
+            </button>
+            <figcaption><span class="fill-in">[MEMORY_CAPTION_1]</span></figcaption>
+          </figure>
+
+          <figure class="memory memory--wide reveal">
+            <button class="memory-button" type="button"
+                    data-caption="[MEMORY_CAPTION_2]"
+                    aria-label="Open memory 2 in a larger view">
+              <img src="assets/memory-02.jpg" width="1200" height="900" loading="lazy"
+                   alt="Memory two — replace this placeholder with a photo of a day you loved">
+            </button>
+            <figcaption><span class="fill-in">[MEMORY_CAPTION_2]</span></figcaption>
+          </figure>
+
+          <figure class="memory memory--square reveal">
+            <button class="memory-button" type="button"
+                    data-caption="[MEMORY_CAPTION_3]"
+                    aria-label="Open memory 3 in a larger view">
+              <img src="assets/memory-03.jpg" width="1080" height="1080" loading="lazy"
+                   alt="Memory three — replace this placeholder with a photo that makes you smile">
+            </button>
+            <figcaption><span class="fill-in">[MEMORY_CAPTION_3]</span></figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Section 5 · Birthday Wish ============ -->
+    <section class="section wish" id="wish" aria-labelledby="wish-heading">
+      <div class="wish-scene" id="wish-scene" aria-hidden="true">
+        <svg id="wishMoon" viewBox="0 0 220 220" width="180" height="180" focusable="false">
+          <defs>
+            <filter id="moonGlow" x="-80%" y="-80%" width="260%" height="260%">
+              <feGaussianBlur stdDeviation="14"/>
+            </filter>
+            <mask id="wishCrescent">
+              <rect width="220" height="220" fill="black"/>
+              <circle cx="110" cy="110" r="66" fill="white"/>
+              <circle cx="132" cy="96" r="58" fill="black"/>
+            </mask>
+          </defs>
+          <circle class="wish-moon-halo" cx="110" cy="110" r="96" fill="#F5F0E6" opacity=".07" filter="url(#moonGlow)"/>
+          <circle cx="110" cy="110" r="66" fill="#F5F0E6" mask="url(#wishCrescent)"/>
+        </svg>
+        <svg class="wish-star-static wish-star-static--a" width="16" height="16" viewBox="0 0 24 24"><use href="#orn-star" fill="#F5F0E6" opacity=".8"/></svg>
+        <svg class="wish-star-static wish-star-static--b" width="11" height="11" viewBox="0 0 24 24"><use href="#orn-star" fill="#C7D4E5" opacity=".6"/></svg>
+        <svg class="wish-star-static wish-star-static--c" width="13" height="13" viewBox="0 0 24 24"><use href="#orn-star" fill="#9DBBDA" opacity=".55"/></svg>
+      </div>
+
+      <div class="section-inner wish-content">
+        <p class="kicker reveal">close your eyes for a second</p>
+        <h2 class="section-title reveal" id="wish-heading">Before You Blow Out the Candles</h2>
+        <p class="wish-message reveal">May this new chapter be kinder, brighter, and full of little things that make you happy.</p>
+        <button class="btn btn--ghost reveal" id="wish-button" type="button">Make a Little Wish</button>
+        <p class="wish-status" id="wish-status" role="status" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <!-- ============ Section 6 · Closing ============ -->
+    <section class="section closing" id="closing" aria-label="Closing note">
+      <div class="section-inner">
+        <svg class="closing-ornament reveal" width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><use href="#orn-star" fill="#9DBBDA"/></svg>
+        <p class="closing-line reveal">Of all the little things life has given me,<br>getting to know you is one of my favorites.</p>
+        <p class="closing-note reveal">Made with love, just for you.</p>
+        <p class="closing-signature reveal"><span class="fill-in">[YOUR_NAME]</span> · <span class="fill-in">[BIRTHDAY_YEAR]</span></p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Lightbox (hidden until a memory is opened) -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Memory viewer" hidden>
+    <div class="lightbox-backdrop" data-lightbox-close></div>
+    <figure class="lightbox-figure">
+      <img class="lightbox-image" id="lightbox-image" src="" alt="">
+      <figcaption class="lightbox-caption" id="lightbox-caption"></figcaption>
+    </figure>
+    <button class="lightbox-btn lightbox-close" id="lightbox-close" type="button" aria-label="Close viewer">
+      <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M3 3l12 12M15 3 3 15" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+    </button>
+    <button class="lightbox-btn lightbox-prev" id="lightbox-prev" type="button" aria-label="Previous memory">
+      <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M11.5 3 5 9l6.5 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <button class="lightbox-btn lightbox-next" id="lightbox-next" type="button" aria-label="Next memory">
+      <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M6.5 3 13 9l-6.5 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
