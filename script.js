@@ -12,7 +12,7 @@
   var authBtn = document.getElementById('auth-btn');
   var authInput = document.getElementById('auth-input');
   var authError = document.getElementById('auth-error');
-  var correctPassword = "251109"; // <--- GANTI PASSWORD DI SINI
+  var correctPassword = "171011"; // <--- GANTI PASSWORD DI SINI
 
   if (authBtn) {
     authBtn.addEventListener('click', function() {
